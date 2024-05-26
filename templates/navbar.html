@@ -11,11 +11,18 @@
             </li>
             {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href={% url 'systems-list' %}>My Hydroponic Systems</a>
+                    <a class="nav-link {% if request.resolver_match.view_name == 'systems-list' %} active {% endif %}"
+                       href={% url 'systems-list' %}>Hydroponic Systems</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href={% url 'measurements-list' %}>My Measurements</a>
+                    <a class="nav-link {% if request.resolver_match.view_name == 'measurements-list' %} active {% endif %}"
+                       href={% url 'measurements-list' %}>Measurements</a>
                 </li>
+                <form class="form-inline ml-2 my-lg-0" method="GET" action="{% url 'systems-list' %}">
+                    <input class="form-control ml-sm-2" type="search" placeholder="Search for Systems" {% if search %}
+                           value="{{ search }}" {% endif %} name="search" aria-label="Search">
+                    <button class="btn nav-item my-2 my-sm-0" type="submit">Search</button>
+                </form>
             {% endif %}
         </ul>
         <ul class="navbar-nav">

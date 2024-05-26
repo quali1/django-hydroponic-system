@@ -7,9 +7,9 @@
         <div class="row">
             <div class="col-md-8">
                 <h1>Hydroponic Systems</h1>
-                {% if object_list %}
+                {% if systems %}
                     <ul class="list-group">
-                        {% for system in object_list %}
+                        {% for system in systems %}
                             <li class="list-group-item">
                                 <h5>{{ system.name }}</h5>
                                 <p><strong>Description:</strong> {{ system.description }}</p>
@@ -22,8 +22,8 @@
                         {% endfor %}
                     </ul>
                 {% else %}
-                    <p>You have no hydroponic systems.</p>
-                    <a class="btn btn-primary" href="{% url 'hydro-create' %}">Create System</a>
+                    <h3>Hydroponic systems not found...</h3>
+                    <a class="btn btn-primary" href="{% url 'measurements-list' %}">Create System</a>
                 {% endif %}
             </div>
 
