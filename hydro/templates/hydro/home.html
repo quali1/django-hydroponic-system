@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-center">
+    <h1 class="display-4">Welcome to the Hydroponics System</h1>
+    <p class="lead">This is a simple application to manage your hydroponic systems.</p>
+    <hr class="my-4">
+    <p>Use the navigation bar to explore the API and manage your systems.</p>
+    <a class="btn btn-primary btn-lg" href="{% url 'api-root' %}" role="button">Go to API</a>
+</div>
+{% endblock %}

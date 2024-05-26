@@ -9,8 +9,7 @@ router.register('measurements', MeasurementViewSet, basename='measurements')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include(router.urls)),
     path('', include('hydro.urls')),
     path('', include('users.urls'))
 ]
-
-urlpatterns += router.urls
