@@ -8,11 +8,11 @@ from .filters import HydroponicSystemFilter, MeasurementFilter
 class HydroViewSet(viewsets.ModelViewSet):
     """
     get -> list → Queryset
-    get -> retrieve → Product Instance Detail View
-    post -> create → New Instance
-    put -> Update
+    get -> retrieve → Hydroponic System Instance Detail View
+    post -> create → New Hydroponic System
+    put -> Update System
     patch -> Partial Update
-    delete -> destroy
+    delete -> destroy System
     """
 
     queryset = HydroponicSystem.objects.all()
@@ -31,11 +31,11 @@ class HydroViewSet(viewsets.ModelViewSet):
 class MeasurementViewSet(viewsets.ModelViewSet):
     """
     get -> list → Queryset
-    get -> retrieve → Product Instance Detail View
-    post -> create → New Instance
-    put -> Update
+    get -> retrieve → Measurement Instance Detail View
+    post -> create → New Measure
+    put -> Update Measure
     patch -> Partial Update
-    delete -> destroy
+    delete -> destroy Measure
     """
 
     queryset = Measurement.objects.all()

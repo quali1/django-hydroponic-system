@@ -10,11 +10,19 @@ class HydroponicSystemSerializer(serializers.ModelSerializer):
     name = serializers.CharField(
         validators=[unique_hydroponic_system_name]
     )
+    measurements = serializers.SerializerMethodField()
 
     class Meta:
         model = HydroponicSystem
         fields = '__all__'
         read_only_fields = ['owner']
+
+    def get_measurements(self, obj):
+        request = self.context.get('request')
+        if request is not None:
+            measurements_url = reverse('measurements-list', request=request)
+            return f"{measurements_url}?hydroponic_system={obj.pk}"
+        return None
 
 
 class MeasurementSerializer(serializers.ModelSerializer):
