@@ -26,3 +26,32 @@ class HydroponicSystemFilter(django_filters.FilterSet):
             'size',
             'system_type'
         ]
+
+
+class MeasurementFilter(django_filters.FilterSet):
+    created_at = django_filters.DateFromToRangeFilter()
+    updated_at = django_filters.DateFromToRangeFilter()
+    ph_level = django_filters.RangeFilter()
+    tds_level = django_filters.RangeFilter()
+    temperature = django_filters.RangeFilter()
+
+    ordering = django_filters.OrderingFilter(
+        fields=(
+            ('created_at', 'created_at'),
+            ('updated_at', 'updated_at'),
+            ('ph_level', 'ph_level'),
+            ('tds_level', 'tds_level'),
+            ('temperature', 'temperature'),
+        ),
+    )
+
+    class Meta:
+        model = Measurement
+        fields = [
+            'hydroponic_system',
+            'created_at',
+            'updated_at',
+            'ph_level',
+            'tds_level',
+            'temperature'
+        ]

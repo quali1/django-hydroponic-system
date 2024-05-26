@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 from hydro.models import HydroponicSystem, Measurement
 from .serializers import HydroponicSystemSerializer, MeasurementSerializer
-from .filters import HydroponicSystemFilter
+from .filters import HydroponicSystemFilter, MeasurementFilter
 
 
 class HydroViewSet(viewsets.ModelViewSet):
@@ -40,9 +40,10 @@ class MeasurementViewSet(viewsets.ModelViewSet):
 
     queryset = Measurement.objects.all()
     serializer_class = MeasurementSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = MeasurementFilter
     lookup_field = "pk"
 
     def get_queryset(self):
         return Measurement.objects.filter(hydroponic_system__owner=self.request.user)
-
 
