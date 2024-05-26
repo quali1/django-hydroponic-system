@@ -26,6 +26,12 @@ class HydroponicSystemSerializer(serializers.ModelSerializer):
 
 
 class MeasurementSerializer(serializers.ModelSerializer):
+    hydroponic_system = serializers.HyperlinkedRelatedField(
+        view_name='hydro-detail',
+        read_only=True,
+        lookup_field='pk'
+    )
+
     class Meta:
         model = Measurement
         fields = '__all__'
