@@ -18,6 +18,9 @@ class HydroViewSet(viewsets.ModelViewSet):
     serializer_class = HydroponicSystemSerializer
     lookup_field = "pk"
 
+    def get_queryset(self):
+        return HydroponicSystem.objects.filter(owner=self.request.user)
+
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
@@ -36,7 +39,7 @@ class MeasurementViewSet(viewsets.ModelViewSet):
     serializer_class = MeasurementSerializer
     lookup_field = "pk"
 
-    # def perform_create(self, serializer):
-    #     serializer.save(owner=self.request.user)
+    def get_queryset(self):
+        return Measurement.objects.filter(hydroponic_system__owner=self.request.user)
 
 
