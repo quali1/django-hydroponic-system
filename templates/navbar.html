@@ -6,9 +6,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'api-root' %}">API</a>
-            </li>
             {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link {% if request.resolver_match.view_name == 'systems-list' %} active {% endif %}"
@@ -25,7 +22,13 @@
                 </form>
             {% endif %}
         </ul>
-        <ul class="navbar-nav">
+        <ul class="navbar-nav navbar-right">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'api-root' %}">API</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'api-docs' %}">API Docs</a>
+            </li>
             {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Logout</a>

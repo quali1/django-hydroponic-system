@@ -8,6 +8,6 @@
     <p class="lead">This is a simple application to manage your hydroponic systems.</p>
     <hr class="my-4">
     <p>Use the navigation bar to explore the API and manage your systems.</p>
-    <a class="btn btn-primary btn-lg" href="{% url 'api-root' %}" role="button">Go to API</a>
+    <a class="btn btn-primary btn-lg" href="{% if user.is_authenticated %} {% url 'api-root' %} {% else %} {% url 'login' %} {% endif %}" role="button">Go to API</a>
 </div>
 {% endblock %}
