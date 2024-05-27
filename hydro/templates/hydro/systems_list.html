@@ -27,9 +27,79 @@
                 {% endif %}
             </div>
 
-            <form method="GET">
+            <form method="GET" action="{% url 'systems-list' %}">
                 <div class="col-md-12">
                     <h2>Sort and Filter Options</h2>
+                    <div class="form-group">
+                        <label for="name">Name contains:</label>
+                        <input type="text" class="form-control" name="name" value="{{ request.GET.name }}"
+                               placeholder="Enter name">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description contains:</label>
+                        <input type="text" class="form-control" name="description"
+                               value="{{ request.GET.description }}"
+                               placeholder="Enter description">
+                    </div>
+                    <div class="form-group">
+                        <label for="installation_date">Installation date:</label>
+                        <input type="date" class="form-control" name="installation_date"
+                               value="{{ request.GET.installation_date }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="created_at_start">Created at:</label>
+                        <div class="d-flex">
+                            <input type="date" class="form-control mr-2" name="created_at_start"
+                                   value="{{ request.GET.created_at_start }}" placeholder="Start date">
+                            <span class="align-self-center">to</span>
+                            <input type="date" class="form-control ml-2" name="created_at_end"
+                                   value="{{ request.GET.created_at_end }}" placeholder="End date">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="updated_at_start">Updated at:</label>
+                        <div class="d-flex">
+                            <input type="date" class="form-control mr-2" name="updated_at_start"
+                                   value="{{ request.GET.updated_at_start }}" placeholder="Start date">
+                            <span class="align-self-center">to</span>
+                            <input type="date" class="form-control ml-2" name="updated_at_end"
+                                   value="{{ request.GET.updated_at_end }}" placeholder="End date">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="size">Size:</label>
+                        <input type="number" class="form-control" name="size" value="{{ request.GET.size }}"
+                               placeholder="Enter size">
+                    </div>
+                    <div class="form-group">
+                        <label for="system_type">System type:</label>
+                        <input type="text" class="form-control" name="system_type"
+                               value="{{ request.GET.system_type }}"
+                               placeholder="Enter system type">
+                    </div>
+                    <div class="form-group">
+                        <label for="ordering">Ordering:</label>
+                        <select class="form-control" name="ordering">
+                            <option value="">Select order</option>
+                            <option value="name_asc" {% if request.GET.ordering == "name_asc" %}selected{% endif %}>
+                                Name
+                                (A-Z)
+                            </option>
+                            <option value="name_desc"
+                                    {% if request.GET.ordering == "name_desc" %}selected{% endif %}>
+                                Name (Z-A)
+                            </option>
+                            <option value="date_asc" {% if request.GET.ordering == "date_asc" %}selected{% endif %}>
+                                Date
+                                (Oldest first)
+                            </option>
+                            <option value="date_desc"
+                                    {% if request.GET.ordering == "date_desc" %}selected{% endif %}>
+                                Date (Newest first)
+                            </option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </form>
         </div>
