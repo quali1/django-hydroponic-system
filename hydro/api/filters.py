@@ -3,7 +3,7 @@ from django_filters import rest_framework as filters
 from hydro.models import HydroponicSystem, Measurement
 
 
-class HydroponicSystemFilter(django_filters.FilterSet):
+class HydroponicSystemAPIFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(lookup_expr='icontains')
     description = django_filters.CharFilter(lookup_expr='icontains')
     installation_date = django_filters.DateFromToRangeFilter()
@@ -28,7 +28,7 @@ class HydroponicSystemFilter(django_filters.FilterSet):
         ]
 
 
-class MeasurementFilter(django_filters.FilterSet):
+class MeasurementAPIFilter(django_filters.FilterSet):
     created_at = django_filters.DateFromToRangeFilter()
     updated_at = django_filters.DateFromToRangeFilter()
     ph_level = django_filters.RangeFilter()

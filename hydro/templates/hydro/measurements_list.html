@@ -3,7 +3,162 @@
 {% block title %}Measurements{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1 class="mt-4">Measurements</h1>
-</div>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Left Side: Measurements -->
+            <div class="col-lg-8">
+                <h2>Measurements</h2>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Measurement ID</th>
+                        <th>Hydroponic System</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>pH Level</th>
+                        <th>TDS Level</th>
+                        <th>Temperature</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Loop through measurements and display -->
+                    {% for measurement in filter.qs %}
+                        <tr>
+                            <td>{{ measurement.id }}</td>
+                            <td>{{ measurement.hydroponic_system }}</td>
+                            <td>{{ measurement.created_at }}</td>
+                            <td>{{ measurement.updated_at }}</td>
+                            <td>{{ measurement.ph_level }}</td>
+                            <td>{{ measurement.tds_level }}</td>
+                            <td>{{ measurement.temperature }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Right Side: Sorting and Filtering Form -->
+            <div class="col-lg-4">
+                <h2>Sort and Filter</h2>
+                <form method="GET" action="">
+                    <!-- Sort By Field -->
+                    <div class="form-group">
+                        <label for="ordering">Sort By:</label>
+                        <select class="form-control" id="ordering" name="ordering">
+                            <option value="" {% if not request.GET.ordering %}selected{% endif %}>-- Choose --</option>
+                            <option value="created_at" {% if request.GET.ordering == 'created_at' %}selected{% endif %}>
+                                Created At (Ascending)
+                            </option>
+                            <option value="-created_at"
+                                    {% if request.GET.ordering == '-created_at' %}selected{% endif %}>Created At
+                                (Descending)
+                            </option>
+                            <option value="updated_at" {% if request.GET.ordering == 'updated_at' %}selected{% endif %}>
+                                Updated At (Ascending)
+                            </option>
+                            <option value="-updated_at"
+                                    {% if request.GET.ordering == '-updated_at' %}selected{% endif %}>Updated At
+                                (Descending)
+                            </option>
+                            <option value="ph_level" {% if request.GET.ordering == 'ph_level' %}selected{% endif %}>pH
+                                Level (Ascending)
+                            </option>
+                            <option value="-ph_level" {% if request.GET.ordering == '-ph_level' %}selected{% endif %}>pH
+                                Level (Descending)
+                            </option>
+                            <option value="tds_level" {% if request.GET.ordering == 'tds_level' %}selected{% endif %}>
+                                TDS Level (Ascending)
+                            </option>
+                            <option value="-tds_level" {% if request.GET.ordering == '-tds_level' %}selected{% endif %}>
+                                TDS Level (Descending)
+                            </option>
+                            <option value="temperature"
+                                    {% if request.GET.ordering == 'temperature' %}selected{% endif %}>Temperature
+                                (Ascending)
+                            </option>
+                            <option value="-temperature"
+                                    {% if request.GET.ordering == '-temperature' %}selected{% endif %}>Temperature
+                                (Descending)
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Hydroponic System Filter -->
+                    <div class="form-group">
+                        <label for="hydroponic_system">Hydroponic System:</label>
+                        <select class="form-control" id="hydroponic_system" name="hydroponic_system">
+                            <option value="" {% if not request.GET.hydroponic_system %}selected{% endif %}>-- Choose
+                                --
+                            </option>
+                            {% for system in systems %}
+                                <option value="{{ system.id }}"
+                                        {% if request.GET.hydroponic_system == system.id|stringformat:"s" %}selected{% endif %}>{{ system.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Date Range Filters -->
+                    <div class="form-group">
+                        <label for="created_at_start">Created At Start:</label>
+                        <input type="date" class="form-control" id="created_at_start" name="created_at_start"
+                               value="{{ request.GET.created_at_start }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="created_at_end">Created At End:</label>
+                        <input type="date" class="form-control" id="created_at_end" name="created_at_end"
+                               value="{{ request.GET.created_at_end }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="updated_at_start">Updated At Start:</label>
+                        <input type="date" class="form-control" id="updated_at_start" name="updated_at_start"
+                               value="{{ request.GET.updated_at_start }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="updated_at_end">Updated At End:</label>
+                        <input type="date" class="form-control" id="updated_at_end" name="updated_at_end"
+                               value="{{ request.GET.updated_at_end }}">
+                    </div>
+
+                    <!-- pH Level Filters -->
+                    <div class="form-group">
+                        <label for="ph_level_start">pH Level Start:</label>
+                        <input type="number" step="0.01" class="form-control" id="ph_level_start" name="ph_level_start"
+                               value="{{ request.GET.ph_level_start }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="ph_level_end">pH Level End:</label>
+                        <input type="number" step="0.01" class="form-control" id="ph_level_end" name="ph_level_end"
+                               value="{{ request.GET.ph_level_end }}">
+                    </div>
+
+                    <!-- TDS Level Filters -->
+                    <div class="form-group">
+                        <label for="tds_level_start">TDS Level Start:</label>
+                        <input type="number" class="form-control" id="tds_level_start" name="tds_level_start"
+                               value="{{ request.GET.tds_level_start }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="tds_level_end">TDS Level End:</label>
+                        <input type="number" class="form-control" id="tds_level_end" name="tds_level_end"
+                               value="{{ request.GET.tds_level_end }}">
+                    </div>
+
+                    <!-- Temperature Filters -->
+                    <div class="form-group">
+                        <label for="temperature_start">Temperature Start:</label>
+                        <input type="number" class="form-control" id="temperature_start" name="temperature_start"
+                               value="{{ request.GET.temperature_start }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="temperature_end">Temperature End:</label>
+                        <input type="number" class="form-control" id="temperature_end" name="temperature_end"
+                               value="{{ request.GET.temperature_end }}">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Apply</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

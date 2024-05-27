@@ -12,8 +12,8 @@
                        href={% url 'systems-list' %}>Hydroponic Systems</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if request.resolver_match.view_name == 'measurements-list' %} active {% endif %}"
-                       href={% url 'measurements-list' %}>Measurements</a>
+                    <a class="nav-link {% if request.resolver_match.view_name == 'measure-list' %} active {% endif %}"
+                       href={% url 'measure-list' %}>Measurements</a>
                 </li>
                 <form class="form-inline ml-2 my-lg-0" method="GET" action="{% url 'systems-list' %}">
                     <input class="form-control ml-sm-2" type="search" placeholder="Search for Systems" {% if search %}
