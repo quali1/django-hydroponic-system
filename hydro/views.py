@@ -6,19 +6,18 @@ from .models import HydroponicSystem, Measurement
 
 # Create your views here.
 
-
 def home_page(request):
     return render(request, 'hydro/home.html')
 
 
 @login_required(login_url="login")
 def hydro_list_view(request):
-    systems = HydroponicSystem.objects.filter(owner=request.user)
-    system_filter = HydroponicSystemFilter(request.GET, queryset=systems)
+    hydroponic_systems = HydroponicSystem.objects.filter(owner=request.user)
+    hydroponic_system_filter = HydroponicSystemFilter(request.GET, queryset=hydroponic_systems)
 
     context = {
-        'systems': system_filter.qs,
-        'filter': system_filter,
+        'systems': hydroponic_system_filter.qs,
+        'filter': hydroponic_system_filter,
     }
 
     return render(request, 'hydro/systems_list.html', context)
@@ -26,10 +25,11 @@ def hydro_list_view(request):
 
 @login_required(login_url="login")
 def measurements_list_view(request):
-    systems = HydroponicSystem.objects.filter(owner=request.user)
-    filter = MeasurementFilter(request.GET, queryset=Measurement.objects.all())
+    hydroponic_systems = HydroponicSystem.objects.filter(owner=request.user)
+    measurement_filter = MeasurementFilter(request.GET,
+                                           queryset=Measurement.objects.filter(hydroponic_system__owner=request.user))
     context = {
-        'filter': filter,
-        'systems': systems,
+        'filter': measurement_filter,
+        'systems': hydroponic_systems,
     }
     return render(request, 'hydro/measurements_list.html', context)

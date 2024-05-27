@@ -16,7 +16,12 @@ class MeasurementFilter(django_filters.FilterSet):
 
     class Meta:
         model = Measurement
-        fields = ['hydroponic_system', 'created_at_start', 'created_at_end', 'updated_at_start', 'updated_at_end', 'ph_level_start', 'ph_level_end', 'tds_level_start', 'tds_level_end', 'temperature_start', 'temperature_end']
+        fields = [
+            'hydroponic_system', 'created_at_start', 'created_at_end',
+            'updated_at_start', 'updated_at_end', 'ph_level_start',
+            'ph_level_end', 'tds_level_start', 'tds_level_end',
+            'temperature_start', 'temperature_end'
+        ]
 
     ordering = django_filters.OrderingFilter(
         fields=(

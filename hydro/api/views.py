@@ -7,9 +7,9 @@ from .filters import HydroponicSystemAPIFilter, MeasurementAPIFilter
 
 class HydroViewSet(viewsets.ModelViewSet):
     """
-    get -> list → Queryset
-    get -> retrieve → Hydroponic System Instance Detail View
-    post -> create → New Hydroponic System
+    get -> list -> Queryset
+    get -> retrieve -> Hydroponic System Instance Detail View
+    post -> create -> New Hydroponic System
     put -> Update System
     patch -> Partial Update
     delete -> destroy System
@@ -30,9 +30,9 @@ class HydroViewSet(viewsets.ModelViewSet):
 
 class MeasurementViewSet(viewsets.ModelViewSet):
     """
-    get -> list → Queryset
-    get -> retrieve → Measurement Instance Detail View
-    post -> create → New Measure
+    get -> list -> Queryset
+    get -> retrieve -> Measurement Instance Detail View
+    post -> create -> New Measure
     put -> Update Measure
     patch -> Partial Update
     delete -> destroy Measure
@@ -46,4 +46,3 @@ class MeasurementViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Measurement.objects.filter(hydroponic_system__owner=self.request.user)
-

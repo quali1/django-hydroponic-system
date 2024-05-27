@@ -7,16 +7,15 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 
-
 def login_user(request):
     if request.method == "POST":
         username = request.POST.get("username").lower()
         password = request.POST.get("password")
 
-        user = authenticate(request, username=username, password=password)
+        authenticated_user = authenticate(request, username=username, password=password)
 
-        if user is not None:
-            login(request, user)
+        if authenticated_user is not None:
+            login(request, authenticated_user)
             return redirect("home")
         else:
             messages.error(request, "Invalid username or password!")
@@ -25,20 +24,20 @@ def login_user(request):
 
 
 def register_user(request):
-    form = UserCreationForm()
+    registration_form = UserCreationForm()
 
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.username = user.username.lower()
-            user.save()
-            login(request, user)
+        registration_form = UserCreationForm(request.POST)
+        if registration_form.is_valid():
+            new_user = registration_form.save(commit=False)
+            new_user.username = new_user.username.lower()
+            new_user.save()
+            login(request, new_user)
             return redirect("home")
         else:
             messages.error(request, "An error occurred during Registration")
 
-    context = {"form": form}
+    context = {"form": registration_form}
 
     return render(request, "users/register.html", context)
 

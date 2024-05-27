@@ -6,10 +6,12 @@ from .validators import unique_hydroponic_system_name
 
 
 class HydroponicSystemSerializer(serializers.ModelSerializer):
+    # URL to the detail view of the HydroponicSystem
     detail = serializers.HyperlinkedIdentityField(view_name='hydro-detail', lookup_field='pk')
     name = serializers.CharField(
         validators=[unique_hydroponic_system_name]
     )
+
     measurements = serializers.SerializerMethodField()
 
     class Meta:
@@ -26,6 +28,7 @@ class HydroponicSystemSerializer(serializers.ModelSerializer):
 
 
 class MeasurementSerializer(serializers.ModelSerializer):
+    # URL to the related HydroponicSystem detail view
     hydroponic_system = serializers.HyperlinkedRelatedField(
         view_name='hydro-detail',
         queryset=HydroponicSystem.objects.all(),
@@ -38,6 +41,7 @@ class MeasurementSerializer(serializers.ModelSerializer):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # Filter HydroponicSystem queryset to only include those owned by the requesting user
         request = self.context.get('request')
         if request and hasattr(request, 'user'):
             self.fields['hydroponic_system'].queryset = HydroponicSystem.objects.filter(owner=request.user)
