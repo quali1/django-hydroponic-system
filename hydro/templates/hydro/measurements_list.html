@@ -11,12 +11,12 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Measurement ID</th>
-                        <th>Hydroponic System</th>
+                        <th>ID</th>
+                        <th>System</th>
                         <th>Created At</th>
                         <th>Updated At</th>
-                        <th>pH Level</th>
-                        <th>TDS Level</th>
+                        <th>pH</th>
+                        <th>TDS</th>
                         <th>Temperature</th>
                     </tr>
                     </thead>
@@ -25,7 +25,7 @@
                     {% for measurement in filter.qs %}
                         <tr>
                             <td>{{ measurement.id }}</td>
-                            <td>{{ measurement.hydroponic_system }}</td>
+                            <td><a href="{% url 'hydro-detail' measurement.hydroponic_system.id %}">{{ measurement.hydroponic_system }}</a></td>
                             <td>{{ measurement.created_at }}</td>
                             <td>{{ measurement.updated_at }}</td>
                             <td>{{ measurement.ph_level }}</td>
