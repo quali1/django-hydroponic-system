@@ -16,15 +16,16 @@
                                 <p><strong>Installation Date:</strong> {{ system.installation_date }}</p>
                                 <p><strong>Size:</strong> {{ system.size }}</p>
                                 <p><strong>Type:</strong> {{ system.system_type }}</p>
-                                <a class="btn btn-primary btn-sm float-left" href="{% url 'measurements-list' %}">Add
-                                    Measurement</a>
+                                <a class="btn btn-secondary btn-sm float-left" href="{% url 'measure-list' %}?hydroponic_system={{ system.id }}">See measurements</a>
                             </li>
                         {% endfor %}
                     </ul>
                 {% else %}
                     <h3>Hydroponic systems not found...</h3>
-                    <a class="btn btn-primary" href="{% url 'hydro-list' %}">Create System</a>
                 {% endif %}
+                <div class="mt-3">
+                    <a class="btn btn-primary mt3" href="{% url 'hydro-list' %}">Create System</a>
+                </div>
             </div>
 
             <form method="GET" action="{% url 'systems-list' %}">
@@ -101,6 +102,7 @@
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="reset" class="btn btn-secondary">Clear</button>
                     </form>
                 </div>
             </form>

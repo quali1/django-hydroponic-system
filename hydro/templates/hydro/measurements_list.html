@@ -25,7 +25,9 @@
                     {% for measurement in filter.qs %}
                         <tr>
                             <td>{{ measurement.id }}</td>
-                            <td><a href="{% url 'hydro-detail' measurement.hydroponic_system.id %}">{{ measurement.hydroponic_system }}</a></td>
+                            <td>
+                                <a href="{% url 'hydro-detail' measurement.hydroponic_system.id %}">{{ measurement.hydroponic_system }}</a>
+                            </td>
                             <td>{{ measurement.created_at }}</td>
                             <td>{{ measurement.updated_at }}</td>
                             <td>{{ measurement.ph_level }}</td>
@@ -99,63 +101,65 @@
 
                     <!-- Date Range Filters -->
                     <div class="form-group">
-                        <label for="created_at_start">Created At Start:</label>
-                        <input type="date" class="form-control" id="created_at_start" name="created_at_start"
-                               value="{{ request.GET.created_at_start }}">
+                        <label for="created_at_start">Created at:</label>
+                        <div class="d-flex">
+                            <input type="date" class="form-control mr-2" name="created_at_start"
+                                   value="{{ request.GET.created_at_start }}" placeholder="Start date">
+                            <span class="align-self-center">to</span>
+                            <input type="date" class="form-control ml-2" name="created_at_end"
+                                   value="{{ request.GET.created_at_end }}" placeholder="End date">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="created_at_end">Created At End:</label>
-                        <input type="date" class="form-control" id="created_at_end" name="created_at_end"
-                               value="{{ request.GET.created_at_end }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="updated_at_start">Updated At Start:</label>
-                        <input type="date" class="form-control" id="updated_at_start" name="updated_at_start"
-                               value="{{ request.GET.updated_at_start }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="updated_at_end">Updated At End:</label>
-                        <input type="date" class="form-control" id="updated_at_end" name="updated_at_end"
-                               value="{{ request.GET.updated_at_end }}">
+                        <label for="updated_at_start">Updated at:</label>
+                        <div class="d-flex">
+                            <input type="date" class="form-control mr-2" name="updated_at_start"
+                                   value="{{ request.GET.updated_at_start }}" placeholder="Start date">
+                            <span class="align-self-center">to</span>
+                            <input type="date" class="form-control ml-2" name="updated_at_end"
+                                   value="{{ request.GET.updated_at_end }}" placeholder="End date">
+                        </div>
                     </div>
 
                     <!-- pH Level Filters -->
                     <div class="form-group">
-                        <label for="ph_level_start">pH Level Start:</label>
-                        <input type="number" step="0.01" class="form-control" id="ph_level_start" name="ph_level_start"
-                               value="{{ request.GET.ph_level_start }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="ph_level_end">pH Level End:</label>
-                        <input type="number" step="0.01" class="form-control" id="ph_level_end" name="ph_level_end"
-                               value="{{ request.GET.ph_level_end }}">
+                        <label for="ph_level_start">pH Level:</label>
+                        <div class="d-flex">
+                            <input type="number" step="0.01" class="form-control mr-2" id="ph_level_start"
+                                   name="ph_level_start"
+                                   value="{{ request.GET.ph_level_start }}">
+                            <span class="align-self-center">to</span>
+                            <input type="number" step="0.01" class="form-control ml-2" id="ph_level_end" name="ph_level_end"
+                                   value="{{ request.GET.ph_level_end }}">
+                        </div>
                     </div>
 
                     <!-- TDS Level Filters -->
                     <div class="form-group">
-                        <label for="tds_level_start">TDS Level Start:</label>
-                        <input type="number" class="form-control" id="tds_level_start" name="tds_level_start"
-                               value="{{ request.GET.tds_level_start }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="tds_level_end">TDS Level End:</label>
-                        <input type="number" class="form-control" id="tds_level_end" name="tds_level_end"
-                               value="{{ request.GET.tds_level_end }}">
+                        <label for="tds_level_start">TDS Level:</label>
+                        <div class="d-flex">
+                            <input type="number" class="form-control mr-2" id="tds_level_start" name="tds_level_start"
+                                   value="{{ request.GET.tds_level_start }}">
+                            <span class="align-self-center">to</span>
+                            <input type="number" class="form-control ml-2" id="tds_level_end" name="tds_level_end"
+                                   value="{{ request.GET.tds_level_end }}">
+                        </div>
                     </div>
 
                     <!-- Temperature Filters -->
                     <div class="form-group">
-                        <label for="temperature_start">Temperature Start:</label>
-                        <input type="number" class="form-control" id="temperature_start" name="temperature_start"
-                               value="{{ request.GET.temperature_start }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="temperature_end">Temperature End:</label>
-                        <input type="number" class="form-control" id="temperature_end" name="temperature_end"
-                               value="{{ request.GET.temperature_end }}">
+                        <label for="temperature_start">Temperature Level:</label>
+                        <div class="d-flex">
+                            <input type="number" class="form-control mr-2" id="temperature_start" name="temperature_start"
+                                   value="{{ request.GET.temperature_start }}">
+                            <span class="align-self-center">to</span>
+                            <input type="number" class="form-control ml-2" id="temperature_end" name="temperature_end"
+                                   value="{{ request.GET.temperature_end }}">
+                        </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-block">Apply</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="reset" class="btn btn-secondary">Clear</button>
                 </form>
             </div>
         </div>
